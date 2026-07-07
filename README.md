@@ -5,7 +5,7 @@ Quant Career Lab is a public proof-of-work repository documenting my progression
 ## Structure
 
 ```text
-Quant-Career-Lab/
+Quant-Lab/
 ├── notebooks/
 ├── reports/
 ├── src/
