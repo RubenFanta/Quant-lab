@@ -1,0 +1,57 @@
+# **Quant Roles: What They Actually Do**
+
+Talking about quantitative roles in finance, we can do 6 macro distinctions:
+
+- Quant researcher
+- Quant trader
+- Market maker
+- Quant developer
+- Quant risk / risk modelling
+- Desk quant / pricing quant
+
+The quant researcher is the one who seeks edge signals, using math and programming not only to develop a strategy, but also to backtest it and empirically validate it.
+
+The quant trader uses this signal and apply them to the real market, readjusting it to spread and market risks, they are responsible for making the signal survive contact with the real market.
+
+The market maker is responsible for keeping up the liquidity of a specific market, holding inventory risk.
+
+The quant developer actually builds the infrastructure used by all the other roles. He is a software engineer, usually.
+
+The quant risk / risk modelling professional is responsible for understanding how and where a firm can lose money, using statistical models.
+
+The desk quant / pricing quant is responsible for pricing and hedging complex financial instruments correctly, usually working close to a trading desk and using derivatives pricing.
+
+## “Which role fits me best and why?”
+
+The role that fits me the best is the Quant researcher or Quant risk / risk modelling, because, as a meta-analysis of me, I would say that: 
+
+- I am curious about various topics
+- I got used to being wrong repeatedly
+- Strong patience and discipline
+- Statistics and probability enthusiast
+- I worked in the insurance field
+- Sceptical and argumentative
+- Not a fast thinker
+- Not that good with C++ and Python
+
+But it is also important to say that I’ve just started studying the topics, and I’m open to changing my mind.
+
+## “What I must prove in the next 12 months.”
+
+This is heavily linked to one fact:
+
+- I will start business and econ in September
+
+Over the next 12 months, I need to use my university studies and self-study to create evidence about which path genuinely fits me.
+
+- Strong patience and discipline, looking at numbers with high critical thinking → **Quant researcher → Msc in Statistics, Econometrics, Data Science, Machine Learning, Applied Mathematics, Financial Engineering, or Quantitative Finance.**
+    - **Internship direction:** Quant research, systematic investment research, data science in finance, asset management research, risk modelling, or model validation.
+- Fast-paced mind, strong competitive drive and emotional control under pressure → Quant trader / market maker → Msc in Quantitative Finance, Financial Engineering, Applied Mathematics, Statistics, or Mathematical Finance.
+    - **Internship direction:** Prop trading, market-making, trading internship, execution trading, systematic trading, or trading analyst roles.
+- Enthusiasm in reviewing code and logical-structure thinking → **Quant developer → Msc in CS/CE**
+    - **Internship direction:** Software engineering, quantitative development, trading infrastructure, data engineering, low-latency systems, or financial technology engineering.
+- Scepticism, patience, critical thinking, attention to downside risk, and interest in model validation → **Quant risk / risk modelling → Msc in Statistics, Econometrics, Quantitative Finance, Financial Engineering, Risk Management, Data Science, Applied Mathematics, or Financial Mathematics.**
+    - **Internship direction:** Risk modelling, market risk, credit risk, model validation, stress testing, regulatory risk, portfolio risk, or financial risk analytics.
+- Interest in derivatives, pricing, hedging, mathematical finance, and model-based valuation → **Desk quant / pricing quant → Msc in Financial Engineering, Mathematical Finance, Quantitative Finance, Applied Mathematics, Statistics, Physics, or Computational Finance.**
+    - **Internship direction:** Desk quant, pricing quant, derivatives analytics, front-office quant, structuring analytics, rates/equity/credit derivatives, valuation, or XVA analytics.
+- None of those → Non-quant roles → Msc in Finance, Economics, Banking and Finance, Management, Corporate Finance, or Financial Markets. **+ Internships in investment analysis, corporate finance, asset management, consulting, risk, financial analysis, business intelligence, or fintech operations.**
