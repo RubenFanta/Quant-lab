@@ -1,1 +1,50 @@
+#Day 8 - 08/07/2026
+##Varaiance
+01_What does N−1 mean in sample standard deviation?
+Whole semple in one mean N, multi-mean N-1 
+It's Bessel's correction. When you estimate the mean from the same sample you're using to compute variance, you use up one degree of freedom, which biases the variance estimate downward if you divide by N. Dividing by N−1 corrects this bias, giving an unbiased estimator of population variance.
+Okay, imagine you have a big jar of jellybeans, but you can only grab a small handful to guess how sweet all the jellybeans in the jar are on average.
+Here's the tricky part: your handful is never exactly like the whole jar. It's just a small peek. So when you use your handful to guess things about the whole jar, your guess tends to be a little too "safe" or "small" — it doesn't capture how spread out the jar really is.
+So mathematicians came up with a clever trick: when you're measuring how spread out your handful of jellybeans is, you divide by a slightly smaller number than the amount of jellybeans you grabbed. That makes your guess a little bigger — just enough to make up for the fact that a small handful always underestimates the full spread.
+That's it! Instead of dividing by "how many jellybeans I grabbed," you divide by "how many jellybeans I grabbed, minus one." That tiny "minus one" is like a correction sticker that fixes your guess so it's fair, instead of always guessing too small.
+That's Bessel's correction — a little math patch that fixes the fact that a small sample always slightly underestimates the truth.
 
+02_Why is annualized volatility multiplied by  √252, not 252?
+Because some back-and forth dirrections partially cancels out
+Because variance scales linearly with time (under the i.i.d. assumption — variances of independent returns add), but standard deviation is the square root of variance. So:
+σ^2annual = 252*σ^2daily -> σannual = sqrt(252)σ daily
+252 is the approximate number of trading days in a year.​
+Imagine each trading day you take one small "wobble" step, either forward or backward, totally randomly. Volatility is basically how big your average wobble is.
+Now, if you take 252 of these random wobble-steps (one for each trading day in a year), you don't end up 252 times farther away than after just one step. Random back-and-forth steps partly cancel out.
+It turns out that with random steps like this, your total distance from the start grows with the square root of the number of steps, not the number of steps itself. So if each day's wobble is size σ, after 252 days your wobble is √252 × σ — not 252 × σ.
+That's why we multiply by √252 to go from daily volatility to yearly volatility, instead of just multiplying by 252.
+
+03_What is one limitation of standard deviation as a risk measure?
+It treats upside and downside deviations symmetrically — a big positive return increases "volatility" just as much as an equally large loss. But most investors only care about downside risk. This is part of why measures like semi-deviation, VaR, or CVaR exist.
+
+04_What is the difference between historical volatility and implied volatility?
+Historical (realized) volatility: backward-looking, computed from actual past price movements (standard deviation of historical returns).
+Implied volatility: forward-looking, backed out from current option prices using a pricing model (e.g., Black-Scholes) — it reflects the market's expectation of future volatility, not what already happened.
+
+05_Under what conditions does square-root-of-time scaling fail?
+Square-root scaling relies on the i.i.d. assumption, so it breaks down when:
+
+Returns are autocorrelated — momentum (positive autocorrelation) makes actual variance grow faster than linear with time; mean-reversion (negative autocorrelation) makes it grow slower.
+Volatility clustering exists (GARCH-type behavior) — calm periods and turbulent periods bunch together rather than volatility being constant, so a single daily σ doesn't represent all days equally.
+Returns aren't identically distributed over time — regime shifts (e.g., pre/post a crisis, changing monetary policy) mean the "true" volatility itself changes.
+Jumps/fat tails dominate — sudden discrete events (earnings, macro shocks) don't scale smoothly with time the way diffusive "wobble" does.
+Non-trading days/stale prices distort the day-to-day return series (as discussed above).
+
+06_Why can two assets with identical volatility have very different downside risk?
+Because standard deviation is a single symmetric number — it can't capture the shape of the distribution. Two assets can have the exact same σ while differing wildly in:
+
+Skewness — one might have frequent small losses/rare big gains (positive skew), the other frequent small gains/rare big crashes (negative skew)
+Kurtosis (tail fatness) — one might have a nice, tame bell-curve distribution, the other might have thin "normal" days but rare catastrophic tail events
+Autocorrelation structure — losses might cluster together in one asset (compounding drawdowns) but not the other
+
+07_Why is volatility comparison unreliable when assets trade in different time zones or with non-synchronous closing prices?
+When two assets' "daily" returns are measured over windows that don't actually overlap in time, you get an artificial version of the staleness problem:
+
+Correlation gets biased downward (Epps effect) — e.g., a US stock's close reflects information up to 4pm ET, but a Japanese stock's close reflects information from hours earlier (before US markets even opened). Each day's "return" partially reflects a different information window, so true co-movement gets masked.
+Volatility itself can be biased — if one market's "close" happens right before a market-moving event that's captured in the next day's return instead, that return series has misaligned timing, distorting both individual σ estimates and covariance/correlation between them.
+Portfolio-level risk gets mismeasured — if you build a portfolio combining assets with async closes (e.g., US equities + Asian equities), naive volatility/correlation-based risk models will misstate diversification benefits, usually overstating them, because they're comparing returns that don't actually share the same real-time information set.
