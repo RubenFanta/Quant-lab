@@ -1,0 +1,23 @@
+# Brief and Technical explanation of Returns, volatility and drawdown.
+
+Returns, volatility, and drawdown are three core concepts in quantitative finance. They describe different aspects of financial performance and risk.
+
+Returns measure how much an asset gains or loses between two points in time. A simple return is calculated as:
+
+Rt = (Pt / Pt-1) - 1
+
+where Pt is the current price and Pt-1 is the previous price. A simple return expresses the percentage change from one price to the next.
+
+Log returns are calculated as:
+
+rt = ln(Pt / Pt-1)
+
+Log returns measure the continuously compounded rate of return. They are often used in quantitative finance because they have useful mathematical properties, especially when returns are aggregated over time.
+
+Volatility measures how much returns fluctuate. In practice, volatility is usually calculated as the standard deviation of returns. Higher volatility means that returns move more strongly around their average, making the investment path more unstable.
+
+Drawdown measures how far an investment falls from its previous peak. It is calculated by comparing the current wealth value with the running peak:
+
+Drawdown = (Current wealth / Running peak) - 1
+
+The running peak is the highest value reached up to each point in time. Maximum drawdown is the worst drawdown observed over the period. It is important because it measures downside risk and the severity of losses an investor would have experienced.
