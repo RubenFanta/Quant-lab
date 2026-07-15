@@ -1,0 +1,287 @@
+1. Final Verdict
+PASSED WITH RESERVATIONS
+
+You produced visible output: the GitHub repo is public, has 38 commits, contains the expected folder structure, and now includes notebooks on volatility, drawdown, look-ahead/survivorship bias, and overfitting. That is real movement.
+
+But the evidence package is incomplete and sloppy. The src/ folder still contains only .gitkeep, so there are no reusable functions despite the project now needing modular return/risk utilities. The README still contains a casual phrase — “Just figuring out how deep this rabbit hole goes” — and the repo still has no About description/topics visible on GitHub.
+
+You worked. You did not yet build at a professional standard.
+
+2. Score Out of 100
+64 / 100
+
+This is a pass, but not a strong pass.
+
+The output volume is acceptable. The rigor is not. The tracking is internally inconsistent: you reported 19.45 actual deep work hours, but the uploaded Notion CSV shows only 15.95 logged hours for July 8-13, with July 14 missing. Until the missing day is documented, the official count is 15.95, not 19.45.
+
+That matters. Quant work starts with clean measurement. If your own time series is inconsistent, your market-data work is not yet trustworthy.
+
+3. Score Table
+Area	Score	Reason
+Deep work consistency	6/10	Work happened across the week, but reported hours and logged hours do not reconcile. Missing July 14 actual hours.
+Technical output	7/10	Multiple notebooks exist: volatility, drawdown, sector risk, look-ahead/survivorship, overfitting. Good output volume.
+Conceptual understanding	6/10	You covered volatility, drawdown, look-ahead, survivorship, overfitting. But you admit ChatGPT did Python work when concepts became stressful. That weakens the signal.
+Code quality	4/10	Cannot verify internals from submitted prompt; GitHub shows notebooks only and src/ is empty except .gitkeep. No modular code evidence.
+Statistical rigor	6/10	Good topics. Weak proof. You need to show formulas, assumptions, checks, and failure modes, not just notebooks existing.
+Error detection	5/10	You identified dependence on ChatGPT and confusion around overfitting/math. That is real. But your error log is not technical enough.
+Anti-overfitting mindset	6/10	Studying overfitting and OOS collapse is correct. But the process itself shows risk of “notebook proliferation” without deep verification.
+Communication clarity	5/10	Prompt data is incomplete, English is rough, outputs are not listed cleanly, self-evaluation missing.
+Career capital created	6/10	Public repo plus notebooks is career capital. But the repo is still amateur in structure, naming, documentation, and modularity.
+Focus / lack of dispersion	7/10	Still inside Quant Career Lab. But you jumped ahead into biases/overfitting before fully hardening returns-volatility-drawdown.
+4. What Is Real Progress
+
+Real progress:
+
+The repository is now public.
+This matters. A private repo is storage; a public repo can become proof of work.
+Commit count increased materially.
+GitHub shows 38 commits. That is evidence of repeated interaction with the repo, not one fake upload.
+You produced more than the minimum scope.
+The notebooks folder contains volatility, drawdown, sector risk, look-ahead/survivorship bias, and overfitting notebooks.
+You touched the right conceptual battlefield.
+Volatility, drawdown, look-ahead bias, survivorship bias, and overfitting are not decorative topics. They are core failure modes in quant research.
+You admitted the main weakness.
+“ChatGPT did all my Python work when I was stressed” is not good, but the admission is useful. The correction is not “give up.” The correction is to force independent reconstruction.
+5. What Is Fake Progress
+
+Fake or weak progress:
+
+Notebook existence is not proof of understanding.
+A notebook in GitHub proves a file exists. It does not prove you can reproduce, explain, debug, or defend the work.
+“All on GitHub” is not an output description.
+That is lazy logging. A real output description says:
+“Implemented annualized volatility using daily returns, compared 3 assets, added rolling volatility chart, explained annualization assumption.”
+Over-advancing is not excellence.
+You went into look-ahead/survivorship and overfitting before proving that the core notebook is clean, modular, and independently understood.
+AI-assisted code without line-by-line understanding is not career capital.
+It is scaffolding. Scaffolding becomes career capital only when you can rebuild it without help.
+The repo still reads like a beginner repo.
+The README remains partly casual, there is no visible About description/topics, and root files like requirements.txt and .gitignore are not visible in the root listing.
+6. Red Flags
+Hour accounting inconsistency.
+Claimed: 19.45. Logged in CSV: 15.95 unless July 14 is missing. This must be fixed.
+Self-evaluation missing.
+The template asked for candidate score and explanation. You left it blank.
+Concepts studied/mastered unclear.
+The section is blank. That makes the review weaker.
+No precise list of unclear concepts.
+“Maybe I’m not as good at math as I thought” is not a concept. It is an emotional conclusion. The unclear concept might be:
+train/test split;
+multiple testing;
+in-sample vs out-of-sample;
+variance of Sharpe estimates;
+polynomial feature overfitting;
+leakage.
+src/ is empty.
+This is the clearest technical deficiency. You are still notebook-dependent.
+
+File naming is unprofessional.
+Examples:
+
+01_View log-simple return.ipynb
+03_Equity curve.ipynb
+07_Look-Ahead Bias and survivorship bias.ipynb
+
+Use lowercase, no spaces, consistent numbering.
+
+No evidence of tests or assertions.
+You did not list checks for volatility, drawdown, returns, or bias examples.
+Possible emotional overreaction to difficulty.
+“Give up?” after struggling with overfitting math is not a rational conclusion. The rational conclusion is: isolate the exact missing prerequisite.
+7. Technical Corrections Required
+Correction 1 — Fix the time log
+
+Create notes/weekly_review_02.md and explicitly reconcile:
+
+# Weekly Review 02
+
+Planned hours: 21
+Logged actual hours from Notion: 15.95
+Unlogged/missing hours: [X]
+Final verified actual hours: [NUMBER]
+
+Explanation of discrepancy:
+[TEXT]
+
+If July 14 happened, log it. If not, do not count it.
+
+Correction 2 — Create src/risk_metrics.py
+
+You need reusable functions immediately.
+
+import numpy as np
+import pandas as pd
+
+
+def simple_returns(prices: pd.Series) -> pd.Series:
+    return prices.pct_change()
+
+
+def log_returns(prices: pd.Series) -> pd.Series:
+    return np.log(prices / prices.shift(1))
+
+
+def cumulative_returns(returns: pd.Series) -> pd.Series:
+    return (1 + returns).cumprod() - 1
+
+
+def annualized_volatility(returns: pd.Series, periods_per_year: int = 252) -> float:
+    return returns.std() * np.sqrt(periods_per_year)
+
+
+def drawdown(equity_curve: pd.Series) -> pd.Series:
+    running_peak = equity_curve.cummax()
+    return equity_curve / running_peak - 1
+
+
+def max_drawdown(equity_curve: pd.Series) -> float:
+    return drawdown(equity_curve).min()
+
+Then import these functions inside notebooks.
+
+Correction 3 — Add sanity checks
+
+Minimum checks:
+
+assert returns.index.is_monotonic_increasing
+assert not returns.dropna().empty
+assert np.isclose(np.log1p(simple_returns), log_returns, equal_nan=True).all()
+assert equity_curve.iloc[0] > 0
+assert max_drawdown(equity_curve) <= 0
+
+Every notebook must contain at least 3 checks.
+
+Correction 4 — Rename files
+
+Rename:
+
+01_View log-simple return.ipynb
+
+to:
+
+01_simple_vs_log_returns.ipynb
+
+Rename:
+
+03_Equity curve.ipynb
+
+to:
+
+03_cumulative_returns_equity_curve.ipynb
+
+Rename:
+
+07_Look-Ahead Bias and survivorship bias.ipynb
+
+to:
+
+07_lookahead_survivorship_bias.ipynb
+
+Consistent naming is not cosmetic. It is part of technical discipline.
+
+Correction 5 — Remove casual README language
+
+Delete:
+
+(Just figuring out how deep this rabbit hole goes)
+
+Replace with a stricter objective:
+
+The objective is to build reproducible technical evidence for quantitative finance roles through notebooks, reusable code, research memos, and weekly review.
+Correction 6 — Fill GitHub About/topics
+
+The repo still visibly says no description or topics. Add:
+
+Description:
+
+Proof-of-work repository for quantitative finance foundations: returns, risk metrics, backtesting pitfalls, and market microstructure.
+
+Topics:
+
+quantitative-finance
+python
+backtesting
+risk-management
+market-microstructure
+financial-data
+Correction 7 — Convert emotional error into technical error
+
+Current error:
+
+Maybe I’m not as good at math as I thought.
+
+Invalid.
+
+Correct format:
+
+## Error — Overfitting concept not independently reconstructed
+
+- What was wrong: I used AI-generated Python before I could independently explain the mathematical mechanism of overfitting.
+- Exact missing concept: [train/test split, parameter search, model flexibility, variance, multiple testing, etc.]
+- Why it matters: A backtest can look profitable because the model fits noise rather than signal.
+- Correction: Rebuild a toy example manually using simulated data, first with no code, then with code.
+- Verification: I must explain why in-sample performance improves while out-of-sample performance collapses.
+8. Operational Orders for Next Week
+Order 1
+
+Task: Reconcile and correct Week 2 time log.
+Expected output: notes/weekly_review_02.md with verified hours and explanation of discrepancy.
+Deadline: next working session.
+Quality standard: no unverifiable hour claims.
+
+Order 2
+
+Task: Create src/risk_metrics.py.
+Expected output: reusable functions for returns, volatility, drawdown, max drawdown.
+Deadline: within 48 hours.
+Quality standard: notebooks must import at least 3 functions from src/.
+
+Order 3
+
+Task: Add sanity checks to volatility and drawdown notebooks.
+Expected output: at least 6 total assertions/checks.
+Deadline: within 72 hours.
+Quality standard: checks must verify formulas, data alignment, and expected signs/ranges.
+
+Order 4
+
+Task: Rewrite the overfitting notebook manually.
+Expected output: one toy example where the candidate explains:
+
+in-sample;
+out-of-sample;
+parameter search;
+why training performance overstates reality.
+Deadline: end of next week.
+Quality standard: candidate must be able to explain the notebook without looking at code.
+Order 5
+
+Task: Create notes/unclear_concepts.md.
+Expected output: list every unclear concept with exact confusion and next action.
+Deadline: within 48 hours.
+Quality standard: no vague entries like “math is hard.”
+
+Order 6
+
+Task: Professionalize repository metadata and README.
+Expected output: About description, topics, README without casual phrasing.
+Deadline: within 24 hours.
+Quality standard: a technical reviewer must understand the repo in 30 seconds.
+
+Order 7
+
+Task: Stop advancing topics until Week 2 core is hardened.
+Expected output: no new topic notebooks until volatility/drawdown/bias notebooks are cleaned, documented, and checked.
+Deadline: immediate.
+Quality standard: depth before breadth.
+
+9. Continue / Correct / Cut Decision
+Continue but correct course.
+
+Do not stop. Do not reduce intensity yet.
+
+But the current mode is unstable: you are producing files faster than you are proving mastery. That is not excellence. Next week must be a hardening week: fewer new topics, more reconstruction, more modular code, more checks, more precise error logs.
+
+10. Brutal Final Sentence
+
+You are not failing, but right now you are using output volume to hide incomplete technical ownership.
